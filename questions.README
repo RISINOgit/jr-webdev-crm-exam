@@ -1,0 +1,38 @@
+DISC Personality Report:
+DOMINANCE
+50 %
+INFLUENCE
+7 %
+STEADINESS
+24 %
+COMPLIANCE
+19 %
+
+Question 1
+Client::where('status', 'active')
+                    ->orderBy('created_at', 'desc') 
+                    ->get();
+Used in: line 23 ClientRepository.php
+
+Question 2
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+Built in Auth middleware due to no API calls being made and having everything in house 
+Used in: line 25 web.php
+
+Question 3
+public function storeClientCredentials(Request $request, ClientRepository $clientRepository)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:Client',
+            'status' => 'required|in:active,inactive',
+        ]);
+
+        $client = $clientRepository->create($validated);
+
+        return response()->json([
+            'status' => 'success',
+            'client' => $client,
+        ]);
+    }
+Used in: line 30 ClientController.php
